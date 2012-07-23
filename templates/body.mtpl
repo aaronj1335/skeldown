@@ -1,0 +1,8 @@
+<body>
+  <div class="topmost container">
+    <div class="sixteen columns">
+      <%= content %>
+    </div>
+  </div>
+</body>
+

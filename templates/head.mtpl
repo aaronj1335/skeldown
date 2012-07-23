@@ -1,0 +1,11 @@
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <meta name="description" content="<%= description %>">
+  <style>
+    <%= skeletonCss %>
+    .topmost.container {
+      margin-top: 40px;
+    }
+  </style>
+</head>
