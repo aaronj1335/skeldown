@@ -1,3 +1,62 @@
+usage = """
+skeldown(1) -- convert markdown to html with skeleton.css
+===================================================
+
+## synopsis
+
+  `skeldown` &lt; _file_
+
+  `skeldown` _file_
+
+## DESCRIPTION
+
+given a markdown file (first command line argument or stdin), skeldown will
+convert it to HTML and insert it into a full HTML document.  it will add
+[`skeleton.css`][skeletoncss] and [a syntax highlighter][highlight].  skeldown
+also provides hooks to add more css and run transformations on the resulting
+markup via jquery.
+
+## ADDITIONAL CSS
+
+css may be added with the `--extracss` option. simply specify any desired
+files:
+
+    $ skeldown --extracss foo.css,bar.css < README.md > docs.html
+
+## ADDITIONAL PROCESSING STEPS
+
+extra js files to process the resulting html.  this is really useful if you
+want to do dynamic things like generate unique, linkable id's for each bullet
+point, or maybe add a table of contents.  the cool thing is that you just need
+to provide a functioni that takes a `$head` and `$body` parameter and performs
+any changes. jquery is used to make DOM manipulation easy. say you want to add
+a word count at the end of your body.  you would run `skeldown` with the
+following command:
+
+    $ skeldown -j wordcount.js < README.md > docs.html
+
+and the contents of `wordcount.js` would look something like this:
+
+    exports.pipeline = function($head, $body) {
+        var count = $body.text().match(/\S+/g).length;
+        $('<span class=wordcount>')
+            .text('Word count: ' + count)
+            .appendTo($body);
+    }
+
+and that would add the following (dynamically generated) HTML to the resulting
+document:
+
+    <span class=wordcount>Word count: 1042</span>
+"""
+
+links = """
+
+[skeletoncss]: http://getskeleton.com         "beutiful responsive boilerplate"
+[highlight]: http://github.com/andris9/highlight.git             "highlight.js"
+[themes]: http://softwaremaniacs.org/media/soft/highlight/test.html    "themes"
+"""
+
 fs = require "fs"
 {join, basename, resolve, normalize, dirname} = require "path"
 marked = require "marked"
@@ -61,17 +120,7 @@ module.exports.title = ""
 run = module.exports.run = () ->
   argv = require("optimist")
 
-    .usage("""
-    convert markdown to html with skeleton.css and optional processing steps
-
-    usage:
-
-      $ $0 < README.md
-      # ... prints html to stdout ...
-
-      $ $0 README.md
-      # ... prints html to stdout ...
-    """)
+    .usage(usage)
 
     .option "out",
       alias: "o"
@@ -79,7 +128,11 @@ run = module.exports.run = () ->
 
     .option "extracss",
       alias: "e"
-      description: "css files to insert.  comma separated if multiple"
+      description: "css files to insert. see [ADDITIONAL CSS][]"
+
+    .option "jspipeline",
+      alias: "j"
+      description: "see [ADDITIONAL PROCESSING STEPS][]"
 
     .option "noprettify",
       alias: "n"
@@ -88,7 +141,7 @@ run = module.exports.run = () ->
     .option "prettifytheme",
       alias: "t"
       "default": "ascetic"
-      description: "prettify theme: http://softwaremaniacs.org/media/soft/highlight/test.html"
+      description: "[prettify theme][themes]"
 
     .option "help",
       alias: "h"
@@ -102,6 +155,9 @@ run = module.exports.run = () ->
 
   if argv.help
     console.log require("optimist").help()
+      .replace(/Options:/g, '## OPTIONS')
+      .replace(/\n(\s+)(--\S+), (-\S)\s*/g, '\n\n$1 * `$3`, `$2`:\n     '),
+      links
     process.exit 0
 
   text = read if argv._.length then argv._[0] else "/dev/stdin"

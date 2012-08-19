@@ -1,0 +1,100 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SKELDOWN" "1" "August 2012" "" ""
+.
+.SH "NAME"
+\fBskeldown\fR \- convert markdown to html with skeleton\.css
+.
+.SH "synopsis"
+\fBskeldown\fR < \fIfile\fR
+.
+.P
+\fBskeldown\fR \fIfile\fR
+.
+.SH "DESCRIPTION"
+given a markdown file (first command line argument or stdin), skeldown will convert it to HTML and insert it into a full HTML document\. it will add \fBskeleton\.css\fR \fIhttp://getskeleton\.com\fR and a syntax highlighter \fIhttp://github\.com/andris9/highlight\.git\fR\. skeldown also provides hooks to add more css and run transformations on the resulting markup via jquery\.
+.
+.SH "ADDITIONAL CSS"
+css may be added with the \fB\-\-extracss\fR option\. simply specify any desired files:
+.
+.IP "" 4
+.
+.nf
+
+$ skeldown \-\-extracss foo\.css,bar\.css < README\.md > docs\.html
+.
+.fi
+.
+.IP "" 0
+.
+.SH "ADDITIONAL PROCESSING STEPS"
+extra js files to process the resulting html\. this is really useful if you want to do dynamic things like generate unique, linkable id\'s for each bullet point, or maybe add a table of contents\. the cool thing is that you just need to provide a functioni that takes a \fB$head\fR and \fB$body\fR parameter and performs any changes\. jquery is used to make DOM manipulation easy\. say you want to add a word count at the end of your body\. you would run \fBskeldown\fR with the following command:
+.
+.IP "" 4
+.
+.nf
+
+$ skeldown \-j wordcount\.js < README\.md > docs\.html
+.
+.fi
+.
+.IP "" 0
+.
+.P
+and the contents of \fBwordcount\.js\fR would look something like this:
+.
+.IP "" 4
+.
+.nf
+
+exports\.pipeline = function($head, $body) {
+    var count = $body\.text()\.match(/S+/g)\.length;
+    $(\'<span class=wordcount>\')
+        \.text(\'Word count: \' + count)
+        \.appendTo($body);
+}
+.
+.fi
+.
+.IP "" 0
+.
+.P
+and that would add the following (dynamically generated) HTML to the resulting document:
+.
+.IP "" 4
+.
+.nf
+
+<span class=wordcount>Word count: 1042</span>
+.
+.fi
+.
+.IP "" 0
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-o\fR, \fB\-\-out\fR
+output file\. defaults to stdout\.
+.
+.TP
+\fB\-e\fR, \fB\-\-extracss\fR
+css files to insert\. see \fIADDITIONAL CSS\fR
+.
+.TP
+\fB\-j\fR, \fB\-\-jspipeline\fR
+see \fIADDITIONAL PROCESSING STEPS\fR
+.
+.TP
+\fB\-n\fR, \fB\-\-noprettify\fR
+DON\'T use code prettifier
+.
+.TP
+\fB\-t\fR, \fB\-\-prettifytheme\fR
+prettify theme \fIhttp://softwaremaniacs\.org/media/soft/highlight/test\.html\fR [default: "ascetic"]
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+display this help message
+

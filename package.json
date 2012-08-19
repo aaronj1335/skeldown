@@ -2,12 +2,15 @@
   "name": "skeldown",
   "version": "0.0.0",
   "description": "markdow + Skeleton css = skeldown",
-  "main": "bin/proxy.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script"
   },
   "bin": {
       "skeldown": "index.js"
+  },
+  "directories": {
+    "man": "./man"
   },
   "author": "Aaron Stacy",
   "license": "BSD",
