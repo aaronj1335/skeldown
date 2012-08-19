@@ -7,7 +7,7 @@
     "test": "mocha --compilers coffee:coffee-script"
   },
   "bin": {
-      "skeldown": "bin/proxy.js"
+      "skeldown": "index.js"
   },
   "author": "Aaron Stacy",
   "license": "BSD",

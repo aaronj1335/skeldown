@@ -27,7 +27,6 @@ skeldown = module.exports = (text) ->
   $head = $(head)
   $body = $(body)
   _.each pipeline, (fn) -> fn($head, $body)
-  # _.compose.apply(_, pipeline)($head = $(head), $body = $(body))
   templates.index head: markup($head), body: markup($body)
 
 skeletonCss = exports.skeletonCss = (() ->
@@ -36,9 +35,9 @@ skeletonCss = exports.skeletonCss = (() ->
   (read filename for filename in filenames).join "\n")()
 
 templates = exports.templates =
-  index: _.template read(join(thisDir, "templates/index.mtpl"))
-  head: _.template read(join(thisDir, "templates/head.mtpl"))
-  body: _.template read(join(thisDir, "templates/body.mtpl"))
+  index: _.template read(join(thisDir, "../templates/index.mtpl"))
+  head: _.template read(join(thisDir,  "../templates/head.mtpl"))
+  body: _.template read(join(thisDir,  "../templates/body.mtpl"))
 
 pipeline = exports.pipeline = [
   ($head, $body) ->
@@ -61,7 +60,19 @@ module.exports.title = ""
 
 run = module.exports.run = () ->
   argv = require("optimist")
-    
+
+    .usage("""
+    convert markdown to html with skeleton.css and optional processing steps
+
+    usage:
+
+      $ $0 < README.md
+      # ... prints html to stdout ...
+
+      $ $0 README.md
+      # ... prints html to stdout ...
+    """)
+
     .option "out",
       alias: "o"
       description: "output file.  defaults to stdout."
@@ -79,11 +90,19 @@ run = module.exports.run = () ->
       "default": "ascetic"
       description: "prettify theme: http://softwaremaniacs.org/media/soft/highlight/test.html"
 
+    .option "help",
+      alias: "h"
+      description: "display this help message"
+
     .argv
 
   argv.extracss = argv.extracss?.split(",") or []
 
   pipeline.unshift prettify if not argv.noprettify
+
+  if argv.help
+    console.log require("optimist").help()
+    process.exit 0
 
   text = read if argv._.length then argv._[0] else "/dev/stdin"
 
