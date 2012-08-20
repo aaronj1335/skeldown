@@ -628,19 +628,70 @@ pre .apache .tag,
 pre .tex .command {
   font-weight: bold;
 }
-</style><style></style></head>
+</style><style>h1 small {
+  font-size: 0.5em;
+  color: #888;
+}
+
+code {
+  font-family: Consolas, monospace;
+}
+
+pre {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  overflow: auto;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+/* for the ascetic color scheme in highlight.js */
+pre .comment,
+pre .template_comment,
+pre .shebang,
+pre .doctype,
+pre .pi,
+pre .javadoc,
+pre .deletion,
+pre .apache .sqbracket {
+  color: #aaa;
+}
+
+a, a:visited {
+  color: #333;
+  text-decoration: underline;
+  outline: 0;
+  -webkit-transition: background-color 300ms, color 300ms;
+     -moz-transition: background-color 300ms, color 300ms;
+      -ms-transition: background-color 300ms, color 300ms;
+       -o-transition: background-color 300ms, color 300ms;
+}
+
+a:hover, a:focus {
+  color: white;
+  background-color: #333;
+  border-radius: 3px;
+  -webkit-transition: background-color 300ms, color 300ms;
+     -moz-transition: background-color 300ms, color 300ms;
+      -ms-transition: background-color 300ms, color 300ms;
+       -o-transition: background-color 300ms, color 300ms;
+  text-decoration: none;
+}
+
+</style></head>
   <body >
   <div class="topmost container">
     <div class="sixteen columns">
-      <h1>skeldown(1) -- convert markdown to html with skeleton.css</h1>
-<h2>synopsis</h2>
+      <h1>skeldown(1) <small>convert markdown to html with skeleton.css</small></h1>
+<h2 id="synopsis">synopsis</h2>
 <p>  <code>skeldown</code> &lt; <em>file</em>
 
 </p>
 <p>  <code>skeldown</code> <em>file</em>
 
 </p>
-<h2>DESCRIPTION</h2>
+<h2 id="description">description</h2>
 <p>given a markdown file (first command line argument or stdin), skeldown will
 convert it to HTML and insert it into a full HTML document.  it will add
 <a href="http://getskeleton.com" title="beutiful responsive boilerplate"><code>skeleton.css</code></a> and <a href="http://github.com/andris9/highlight.git" title="highlight.js">a syntax highlighter</a>.  skeldown
@@ -648,13 +699,13 @@ also provides hooks to add more css and run transformations on the resulting
 markup via jquery.
 
 </p>
-<h2>ADDITIONAL CSS</h2>
+<h2 id="additional-css">additional css</h2>
 <p>css may be added with the <code>--extracss</code> option. simply specify any desired
 files:
 
 </p>
 <pre class="add-bottom"><code>$ skeldown --extracss foo.css,bar.css &lt; README.md  docs.html</code></pre>
-<h2>ADDITIONAL PROCESSING STEPS</h2>
+<h2 id="additional-processing-steps">additional processing steps</h2>
 <p>extra js files to process the resulting html.  this is really useful if you
 want to do dynamic things like generate unique, linkable id's for each bullet
 point, or maybe add a table of contents.  the cool thing is that you just need
@@ -679,16 +730,16 @@ document:
 
 </p>
 <pre class="add-bottom"><code>&lt;span <span class="keyword">class</span>=wordcountWord count: <span class="number">1042</span>&lt;/span</code></pre>
-<h2>OPTIONS</h2>
+<h2 id="options">options</h2>
 <ul>
 <li><p><code>-o</code>, <code>--out</code>:
 output file.  defaults to stdout.          </p>
 </li>
-<li><p><code>-e</code>, <code>--extracss</code>:
-css files to insert. see [ADDITIONAL CSS][]</p>
+<li><p>-e, --extracss:
+css files to insert. see <a href="#additional-css">additional css</a></p>
 </li>
-<li><p><code>-j</code>, <code>--jspipeline</code>:
-see [ADDITIONAL PROCESSING STEPS][]        </p>
+<li><p>-j, --jspipeline:
+see <a href="#additional-processing-steps">additional processing steps</a>        </p>
 </li>
 <li><p><code>-n</code>, <code>--noprettify</code>:
 DON'T use code prettifier                  </p>

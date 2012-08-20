@@ -1,7 +1,7 @@
 skeldown(1) -- convert markdown to html with skeleton.css
-===================================================
+=========================================================
 
-## synopsis
+## SYNOPSIS
 
   `skeldown` &lt; _file_
 

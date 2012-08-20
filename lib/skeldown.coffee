@@ -1,8 +1,8 @@
 usage = """
 skeldown(1) -- convert markdown to html with skeleton.css
-===================================================
+=========================================================
 
-## synopsis
+## SYNOPSIS
 
   `skeldown` &lt; _file_
 
@@ -85,7 +85,7 @@ skeldown = module.exports = (text) ->
     content: marked text
   $head = $(head)
   $body = $(body)
-  _.each pipeline, (fn) -> fn($head, $body)
+  _.each pipeline, (fn) -> fn($, $head, $body)
   templates.index head: markup($head), body: markup($body)
 
 skeletonCss = exports.skeletonCss = (() ->
@@ -99,13 +99,13 @@ templates = exports.templates =
   body: _.template read(join(thisDir,  "../templates/body.mtpl"))
 
 pipeline = exports.pipeline = [
-  ($head, $body) ->
+  ($, $head, $body) ->
     $('<style>')
       .text(argv.extracss.map((filename) -> read(filename)).join("\n"))
       .appendTo($head)
 ]
 
-prettify = ($head, $body) ->
+prettify = ($, $head, $body) ->
   dir = join dirname(require.resolve("highlight")), "vendor/highlight.js/styles"
   $('<style>')
     .text(read(join(dir, "#{argv.prettifytheme}.css")))
@@ -150,6 +150,10 @@ run = module.exports.run = () ->
     .argv
 
   argv.extracss = argv.extracss?.split(",") or []
+
+  for script in argv.jspipeline?.split(",") or []
+    pipeline.push(require(resolve(script)).pipeline)
+    # pipeline.push(require('/Users/astacy/code/skeldown/etc/skeldown/pipeline.js').pipeline)
 
   pipeline.unshift prettify if not argv.noprettify
 

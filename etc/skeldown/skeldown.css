@@ -1,0 +1,51 @@
+h1 small {
+  font-size: 0.5em;
+  color: #888;
+}
+
+code {
+  font-family: Consolas, monospace;
+}
+
+pre {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  overflow: auto;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+/* for the ascetic color scheme in highlight.js */
+pre .comment,
+pre .template_comment,
+pre .shebang,
+pre .doctype,
+pre .pi,
+pre .javadoc,
+pre .deletion,
+pre .apache .sqbracket {
+  color: #aaa;
+}
+
+a, a:visited {
+  color: #333;
+  text-decoration: underline;
+  outline: 0;
+  -webkit-transition: background-color 300ms, color 300ms;
+     -moz-transition: background-color 300ms, color 300ms;
+      -ms-transition: background-color 300ms, color 300ms;
+       -o-transition: background-color 300ms, color 300ms;
+}
+
+a:hover, a:focus {
+  color: white;
+  background-color: #333;
+  border-radius: 3px;
+  -webkit-transition: background-color 300ms, color 300ms;
+     -moz-transition: background-color 300ms, color 300ms;
+      -ms-transition: background-color 300ms, color 300ms;
+       -o-transition: background-color 300ms, color 300ms;
+  text-decoration: none;
+}
+
