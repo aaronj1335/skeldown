@@ -1,13 +1,13 @@
 {
   "name": "skeldown",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "markdow + Skeleton css = skeldown",
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script"
   },
   "bin": {
-      "skeldown": "index.js"
+    "skeldown": "index.js"
   },
   "directories": {
     "man": "./man"
