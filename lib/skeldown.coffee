@@ -49,7 +49,7 @@ document:
 
     <span class=wordcount>Word count: 1042</span>
 
-## configuration file
+## CONFIGURATION FILE
 
 skeldown will check for a configuration file in `~/.skeldown/config.json` that
 updates the command line configurations. so if, for instance, you'd like all of
