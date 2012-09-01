@@ -58,6 +58,7 @@
     <a href="#DESCRIPTION">DESCRIPTION</a>
     <a href="#ADDITIONAL-CSS">ADDITIONAL CSS</a>
     <a href="#ADDITIONAL-PROCESSING-STEPS">ADDITIONAL PROCESSING STEPS</a>
+    <a href="#configuration-file">configuration file</a>
     <a href="#OPTIONS">OPTIONS</a>
   </div>
 
@@ -82,7 +83,7 @@
 
 <p>given a markdown file (first command line argument or stdin), skeldown will
 convert it to HTML and insert it into a full HTML document.  it will add
-<a href="http://getskeleton.com" title="beutiful responsive boilerplate"><code>skeleton.css</code></a> and <a href="http://github.com/andris9/highlight.git" title="highlight.js">a syntax highlighter</a>.  skeldown
+<a title="beutiful responsive boilerplate" href="http://getskeleton.com"><code>skeleton.css</code></a> and <a title="highlight.js" href="http://github.com/andris9/highlight.git">a syntax highlighter</a>.  skeldown
 also provides hooks to add more css and run transformations on the resulting
 markup via jquery.</p>
 
@@ -123,12 +124,32 @@ document:</p>
 <pre><code>&lt;span class=wordcount&gt;Word count: 1042&lt;/span&gt;
 </code></pre>
 
+<h2 id="configuration-file">configuration file</h2>
+
+<p>skeldown will check for a configuration file in <code>~/.skeldown/config.json</code> that
+updates the command line configurations. so if, for instance, you'd like all of
+your <code>skeldown</code> files to have a particular style, you can put the following in
+<code>~/.skeldown/config.json</code>:</p>
+
+<pre><code>{
+  "extracss": "style.css"
+}
+</code></pre>
+
+<p>which is equivalent to calling:</p>
+
+<pre><code>$ skeldown --extracss ~/.skeldown/style.css
+</code></pre>
+
+<p>all paths in <code>~/.skeldown/config.json</code> are evaluated relative to the
+<code>~/.skeldown</code> directory.</p>
+
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <dl>
 <dt> <code>-o</code>, <code>--out</code></dt><dd><p> output file.  defaults to stdout.</p></dd>
-<dt> <code>-e</code>, <code>--extracss</code></dt><dd><p> css files to insert. see <a href="#ADDITIONAL-CSS" data-bare-link="true" title="ADDITIONAL CSS">ADDITIONAL CSS</a></p></dd>
-<dt> <code>-j</code>, <code>--jspipeline</code></dt><dd><p> see <a href="#ADDITIONAL-PROCESSING-STEPS" data-bare-link="true" title="ADDITIONAL PROCESSING STEPS">ADDITIONAL PROCESSING STEPS</a></p></dd>
+<dt> <code>-e</code>, <code>--extracss</code></dt><dd><p> css files to insert. see <a data-bare-link="true" href="#ADDITIONAL-CSS" title="ADDITIONAL CSS">ADDITIONAL CSS</a></p></dd>
+<dt> <code>-j</code>, <code>--jspipeline</code></dt><dd><p> see <a data-bare-link="true" href="#ADDITIONAL-PROCESSING-STEPS" title="ADDITIONAL PROCESSING STEPS">ADDITIONAL PROCESSING STEPS</a></p></dd>
 <dt> <code>-n</code>, <code>--noprettify</code></dt><dd><p> DON'T use code prettifier</p></dd>
 <dt> <code>-t</code>, <code>--prettifytheme</code></dt><dd><p> <a href="http://softwaremaniacs.org/media/soft/highlight/test.html" title="themes">prettify theme</a>                     [default: "ascetic"]</p></dd>
 <dt> <code>-h</code>, <code>--help</code></dt><dd><p> display this help message</p></dd>
@@ -138,7 +159,7 @@ document:</p>
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2012</li>
+    <li class='tc'>September 2012</li>
     <li class='tr'>skeldown(1)</li>
   </ol>
 

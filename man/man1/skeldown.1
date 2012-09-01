@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "SKELDOWN" "1" "August 2012" "" "SKELDOWN MANUAL"
+.TH "SKELDOWN" "1" "September 2012" "" "SKELDOWN MANUAL"
 .
 .SH "NAME"
 \fBskeldown\fR \- convert markdown to html with skeleton\.css
@@ -71,6 +71,37 @@ and that would add the following (dynamically generated) HTML to the resulting d
 .fi
 .
 .IP "" 0
+.
+.SH "configuration file"
+skeldown will check for a configuration file in \fB~/\.skeldown/config\.json\fR that updates the command line configurations\. so if, for instance, you\'d like all of your \fBskeldown\fR files to have a particular style, you can put the following in \fB~/\.skeldown/config\.json\fR:
+.
+.IP "" 4
+.
+.nf
+
+{
+  "extracss": "style\.css"
+}
+.
+.fi
+.
+.IP "" 0
+.
+.P
+which is equivalent to calling:
+.
+.IP "" 4
+.
+.nf
+
+$ skeldown \-\-extracss ~/\.skeldown/style\.css
+.
+.fi
+.
+.IP "" 0
+.
+.P
+all paths in \fB~/\.skeldown/config\.json\fR are evaluated relative to the \fB~/\.skeldown\fR directory\.
 .
 .SH "OPTIONS"
 .

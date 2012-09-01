@@ -679,6 +679,62 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+
+code {
+  font-family: Consolas, monospace;
+}
+
+pre {
+  margin: 0 20px 20px 20px;
+  padding: 20px;
+  overflow: auto;
+  background-color: #eee;
+  border-radius: 10px;
+}
+pre code {
+  background-color: #eee;
+}
+/* for the ascetic color scheme in highlight.js */
+pre .comment,
+pre .template_comment,
+pre .shebang,
+pre .doctype,
+pre .pi,
+pre .javadoc,
+pre .deletion,
+pre .apache .sqbracket {
+  color: #656565;
+}
+
+
+a, a:visited {
+  color: #333;
+  text-decoration: underline;
+  outline: 0;
+  -webkit-transition: background-color 300ms, color 300ms;
+     -moz-transition: background-color 300ms, color 300ms;
+      -ms-transition: background-color 300ms, color 300ms;
+       -o-transition: background-color 300ms, color 300ms;
+}
+
+a:hover, a:focus {
+  color: white;
+  background-color: #333;
+  border-radius: 3px;
+  -webkit-transition: background-color 300ms, color 300ms;
+     -moz-transition: background-color 300ms, color 300ms;
+      -ms-transition: background-color 300ms, color 300ms;
+       -o-transition: background-color 300ms, color 300ms;
+  text-decoration: none;
+}
+
+ul {
+  list-style: disc inside;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  font-size: 100%;
+}
 </style></head>
   <body >
   <div class="topmost container">
@@ -730,6 +786,25 @@ document:
 
 </p>
 <pre class="add-bottom"><code>&lt;span <span class="keyword">class</span>=wordcountWord count: <span class="number">1042</span>&lt;/span</code></pre>
+<h2 id="configuration-file">configuration file</h2>
+<p>skeldown will check for a configuration file in ~/.skeldown/config.json that
+updates the command line configurations. so if, for instance, you'd like all of
+your skeldown files to have a particular style, you can put the following in
+~/.skeldown/config.json:
+
+</p>
+<pre class="add-bottom"><code>{
+  "extracss": "style.css"
+}</code></pre>
+<p>which is equivalent to calling:
+
+</p>
+<pre class="add-bottom"><code>$ skeldown --extracss ~/.skeldown/style.css</code></pre>
+<p>all paths in <code>~/.skeldown/config.json</code> are evaluated relative to the
+<code>~/.skeldown</code> directory.
+
+
+</p>
 <h2 id="options">options</h2>
 <ul>
 <li><p><code>-o</code>, <code>--out</code>:

@@ -48,6 +48,25 @@ document:
 
     <span class=wordcount>Word count: 1042</span>
 
+## configuration file
+
+skeldown will check for a configuration file in `~/.skeldown/config.json` that
+updates the command line configurations. so if, for instance, you'd like all of
+your `skeldown` files to have a particular style, you can put the following in
+`~/.skeldown/config.json`:
+
+    {
+      "extracss": "style.css"
+    }
+
+which is equivalent to calling:
+
+    $ skeldown --extracss ~/.skeldown/style.css
+
+all paths in `~/.skeldown/config.json` are evaluated relative to the
+`~/.skeldown` directory.
+
+
 ## OPTIONS
 
    * `-o`, `--out`:
