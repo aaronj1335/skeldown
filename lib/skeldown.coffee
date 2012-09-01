@@ -48,6 +48,25 @@ and that would add the following (dynamically generated) HTML to the resulting
 document:
 
     <span class=wordcount>Word count: 1042</span>
+
+## configuration file
+
+skeldown will check for a configuration file in `~/.skeldown/config.json` that
+updates the command line configurations. so if, for instance, you'd like all of
+your `skeldown` files to have a particular style, you can put the following in
+`~/.skeldown/config.json`:
+
+    {
+      "extracss": "style.css"
+    }
+
+which is equivalent to calling:
+
+    $ skeldown --extracss ~/.skeldown/style.css
+
+all paths in `~/.skeldown/config.json` are evaluated relative to the
+`~/.skeldown` directory.
+
 """
 
 links = """
@@ -59,6 +78,7 @@ links = """
 
 fs = require "fs"
 {join, basename, resolve, normalize, dirname} = require "path"
+exists = fs.existsSync or require("path").existsSync
 marked = require "marked"
 optimist = require "optimist"
 _ = require "underscore"
@@ -66,6 +86,7 @@ $ = require "jQuery"
 highlight = require("highlight").Highlight
 read = (filename) -> fs.readFileSync filename, "utf8"
 thisDir = dirname module.filename
+configDir = join process.env.HOME, '.skeldown'
 argv = null
 
 # like jQuery.fn.html except it includes the outer tags (and outer tag attrs)
@@ -151,9 +172,20 @@ run = module.exports.run = () ->
 
   argv.extracss = argv.extracss?.split(",") or []
 
+  if exists join(configDir, 'config.json')
+    for key, value of JSON.parse(read(join(configDir, 'config.json')))
+      if key == 'extracss'
+        for file in value.split ','
+          (argv.extracss ||= []).push(join(configDir, file))
+      else if key == 'jspipeline'
+        for file in value.split ','
+          pipeline.push(join(configDir, file))
+      else if not argv[key]?
+        argv[key] = value
+
+
   for script in argv.jspipeline?.split(",") or []
     pipeline.push(require(resolve(script)).pipeline)
-    # pipeline.push(require('/Users/astacy/code/skeldown/etc/skeldown/pipeline.js').pipeline)
 
   pipeline.unshift prettify if not argv.noprettify
 
