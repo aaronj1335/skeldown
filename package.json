@@ -1,6 +1,6 @@
 {
   "name": "skeldown",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "markdow + Skeleton css = skeldown",
   "main": "index.js",
   "scripts": {
